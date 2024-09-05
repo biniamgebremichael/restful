@@ -26,13 +26,16 @@ The Application is build in Java using the spring-boot framework. compiled with 
 - [docker-compose](https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-linux-x86_64 )  
 
 ## Build
-> git clone https://github.com/biniamgebremichael/restful.git
-> cd restful
-> sh gradlew bootJar
+```
+git clone https://github.com/biniamgebremichael/restful.git> 
+cd restful> 
+sh gradlew bootJar
+```
 
 ## Run
->  ./docker-compose  -f docker-compose.yaml  up
-
+```
+./docker-compose  -f docker-compose.yaml  up
+```
 ## Use
 
 http://localhost:8090

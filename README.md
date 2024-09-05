@@ -9,10 +9,11 @@ The application also uses backend Database to store content, but this is not the
 ### Note
 For a true cloud native, this application could be run from AWS lambda or GCP cloud function, and set the endpoints in API-Gateway. 
 AWS API-gateway can hide the api behind authentication that can provide different permission for read and write calls. API-gateway can
-also be configured with CDN cache and route-able url. The entire service and resources can be automated using terraform code. 
+also be configured with CDN cache and route-able url. For the sprit of IAC, the entire service and its resources can be automated 
+using terraform code. 
 
 Instead, I choose to implement it as a single java standalone application, 
-to make it testable in a single instance and to give more focus on the API calls alone.
+to make it testable in a single host,  and to give more focus on the API calls alone.
 
 
 
@@ -27,7 +28,7 @@ The Application is build in Java using the spring-boot framework. compiled with 
 
 ## Build
 ```
-git clone https://github.com/biniamgebremichael/restful.git> 
+git clone https://github.com/biniamgebremichael/restful.git 
 cd restful 
 sh gradlew test
 sh gradlew bootJar

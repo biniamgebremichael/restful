@@ -2,9 +2,9 @@
 
 The API service is a backend application to store user data (such as name, email and phone). 
 The service has API endpoints to add, delete, update, query user data. The focus of this application is on how
-to provide a full-stack development template for backend API that promotes: object-oriented architecture, testing,
+to provide a full-stack development template for backend API that promotes: object-oriented architecture, test driven development,
  dynamic API documentation and cloud native deployment using docker.
-The application also uses backend Database to store content, but this is not the main focus.
+The application also uses Spring Actuator for observability and backend Database to store content, but this is not the main focus.
 
 ### Note
 For a true cloud native, this application could be run from AWS lambda or GCP cloud function, and set the endpoints in API-Gateway. 
@@ -41,10 +41,8 @@ chmod +x docker-compose
 sudo ./docker-compose  -f docker-compose.yaml  up
 ```
 ## Use
-
-http://localhost:8090
-
-## API Docs
-http://localhost:8090/swagger-ui/index.html
+- main url http://localhost:8090
+- observability http://localhost:8090/actuator/metrics
+- API swagger docs http://localhost:8090/swagger-ui/index.html
 
 ![API Docs screenshot](README.png)

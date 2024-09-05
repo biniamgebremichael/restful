@@ -5,3 +5,7 @@ services:
       - 8090:8090
     volumes:
       - /tmp:/data
+#  zipkin:
+#    image: 'openzipkin/zipkin:latest'
+#    ports:
+#      - 8091:8091

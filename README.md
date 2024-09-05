@@ -7,7 +7,7 @@ to provide a full-stack development template for backend API that promotes: obje
 The application also uses backend Database to store content, but this is not the main focus.
 
 ### Note
-For a true cloud native, this application could be run from AWS lambda or GCP cloud function and setup the endpoints in API-Gateway. 
+For a true cloud native, this application could be run from AWS lambda or GCP cloud function, and set the endpoints in API-Gateway. 
 AWS API-gateway can hide the api behind authentication that can provide different permission for read and write calls. API-gateway can
 also be configured with CDN cache and route-able url. The entire service and resources can be automated using terraform code. 
 
@@ -25,17 +25,19 @@ The Application is build in Java using the spring-boot framework. compiled with 
 - docker
 - [docker-compose](https://github.com/docker/compose/releases/download/v2.29.2/docker-compose-linux-x86_64 )  
 
-# Build
+## Build
 > git clone https://github.com/biniamgebremichael/restful.git
 > cd restful
 > sh gradlew bootJar
 
-# Run
+## Run
 >  ./docker-compose  -f docker-compose.yaml  up
 
-# Use
+## Use
 
 http://localhost:8090
 
-# API Docs
+## API Docs
 http://localhost:8090/swagger-ui/index.html
+
+![API Docs screenshot](README.png)

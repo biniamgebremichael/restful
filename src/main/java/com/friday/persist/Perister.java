@@ -12,9 +12,9 @@ public interface Perister {
 
     int delete(String email);
 
-    User get(String email);
+    User getByEmail(String email);
 
-    User get(Integer id);
+    User getById(Integer id);
 
     List<User> get();
 }

@@ -1,9 +1,9 @@
 package com.friday;
 
 import com.friday.persist.Perister;
-import com.friday.persist.SqlitePersister;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,16 +19,16 @@ import java.util.logging.Logger;
 
 @RestController
 public class Router {
-    private final Perister perister;
+    @Autowired
+    private Perister perister;
     private static final Logger LOGGER = Logger.getLogger(FileHandler.class.getName());
-    private final FileHandler fileHandler;
 
-    public Router() throws IOException {
-        this.fileHandler = new FileHandler("friday%u.log", 1024 * 1024, 5, true);
-        this.fileHandler.setLevel(Level.ALL);
+    public Router(Perister perister) throws IOException {
+        this.perister = perister;
+        FileHandler fileHandler = new FileHandler("friday_router%u.log", 1024 * 1024, 5, true);
+        fileHandler.setLevel(Level.ALL);
         LOGGER.addHandler(fileHandler);
         LOGGER.setLevel(Level.ALL);
-        this.perister = new SqlitePersister(fileHandler);
     }
 
     @GetMapping("/")
@@ -58,7 +58,7 @@ public class Router {
 
     @GetMapping("/api/getByEmail")
     public ResponseEntity<?> getByEmail(@NotBlank(message = "Email is mandatory") @Email(message = "Invalid email address") String email) {
-        User user = this.perister.get(email);
+        User user = this.perister.getByEmail(email);
         return user == null ? new ResponseEntity<>(new UserInfo(email + " not found"), HttpStatus.PARTIAL_CONTENT) :
                 new ResponseEntity<User>(user, HttpStatus.OK);
     }

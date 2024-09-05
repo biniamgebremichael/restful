@@ -1,6 +1,9 @@
 package com.friday.persist;
 
 import com.friday.User;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 import java.sql.*;
 import java.io.File;
 import java.util.ArrayList;
@@ -9,6 +12,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@Service
 public class SqlitePersister implements Perister {
 
 
@@ -19,7 +23,10 @@ public class SqlitePersister implements Perister {
     private static final Logger LOGGER = Logger.getLogger(SqlitePersister.class.getName());
 
 
-    public SqlitePersister(FileHandler fileHandler) {
+    public SqlitePersister( )  throws IOException {
+
+        FileHandler fileHandler = new FileHandler("friday_db%u.log", 1024 * 1024, 5, true);
+        fileHandler.setLevel(Level.ALL);
         LOGGER.addHandler(fileHandler);
         LOGGER.setLevel(Level.ALL);
 
@@ -83,7 +90,7 @@ public class SqlitePersister implements Perister {
     }
 
     @Override
-    public User get(String email) {
+    public User getByEmail(String email) {
         String sql = "Select * from users where email = ?";
 
         try (Connection conn = this.connect();
@@ -104,7 +111,7 @@ public class SqlitePersister implements Perister {
 
 
     @Override
-    public User get(Integer id) {
+    public User getById(Integer id) {
         String sql = "Select * from users where id = ?";
 
         try (Connection conn = this.connect();

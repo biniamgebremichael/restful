@@ -20,7 +20,7 @@ import java.util.logging.Logger;
 @RestController
 public class Router {
     @Autowired
-    private Perister perister;
+    private final Perister perister;
     private static final Logger LOGGER = Logger.getLogger(FileHandler.class.getName());
 
     public Router(Perister perister) throws IOException {
@@ -66,7 +66,7 @@ public class Router {
     @GetMapping("/api/getAll")
     public ResponseEntity<?> getAll() {
         List<User> users = this.perister.get();
-        return users == null || users.size() <= 0 ? new ResponseEntity<>(new UserInfo("No users registered"), HttpStatus.PARTIAL_CONTENT) :
-                new ResponseEntity<List<User>>(users, HttpStatus.OK);
+        return users == null || users.isEmpty() ? new ResponseEntity<>(new UserInfo("No users registered"), HttpStatus.PARTIAL_CONTENT) :
+                new ResponseEntity<>(users, HttpStatus.OK);
     }
 }

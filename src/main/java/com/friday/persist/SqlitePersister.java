@@ -17,7 +17,6 @@ public class SqlitePersister implements Perister {
 
 
     String dbDir = "/data";
-    private final String createTable = "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, prefix TEXT, firstName TEXT NOT NULL, middleName TEXT, lastName TEXT NOT NULL, suffix TEXT , email TEXT NOT NULL UNIQUE, phone TEXT )";
     private final String url;
 
     private static final Logger LOGGER = Logger.getLogger(SqlitePersister.class.getName());
@@ -38,6 +37,7 @@ public class SqlitePersister implements Perister {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(this.url);
+            String createTable = "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, prefix TEXT, firstName TEXT NOT NULL, middleName TEXT, lastName TEXT NOT NULL, suffix TEXT , email TEXT NOT NULL UNIQUE, phone TEXT )";
             PreparedStatement pstmt = conn.prepareStatement(createTable);
             pstmt.execute();
         } catch (SQLException e) {
@@ -104,28 +104,6 @@ public class SqlitePersister implements Perister {
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, "Failed to query user table", e);
-
-        }
-        return null;
-    }
-
-
-    @Override
-    public User getById(Integer id) {
-        String sql = "Select * from users where id = ?";
-
-        try (Connection conn = this.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
-            ResultSet resultSet = pstmt.executeQuery();
-            if (resultSet.next()) {
-                return getUser(resultSet);
-            } else {
-                return null;
-            }
-        } catch (SQLException e) {
-            LOGGER.log(Level.SEVERE, "Failed to query user table", e);
-
 
         }
         return null;

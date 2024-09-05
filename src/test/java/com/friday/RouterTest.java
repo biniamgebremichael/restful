@@ -10,6 +10,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Arrays;
+import java.util.List;
+
 import static org.hamcrest.Matchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -35,7 +37,7 @@ public class RouterTest {
     @Test
     public void testGetAllEmpty() throws Exception {
 
-        Mockito.when(perister.get()).thenReturn(Arrays.asList());
+        Mockito.when(perister.get()).thenReturn(List.of());
         // Perform GET request and verify the response
         mockMvc.perform(get("/api/getAll"))
                 .andExpect(status().isPartialContent())  // Expect HTTP 200 OK
@@ -54,7 +56,7 @@ public class RouterTest {
     @Test
     public void testGetAll() throws Exception {
 
-        Mockito.when(perister.get()).thenReturn(Arrays.asList(new User("Mr.", "James", "J", "Bond", "Jr.","james@bond.com","123456789")));
+        Mockito.when(perister.get()).thenReturn(List.of(new User("Mr.", "James", "J", "Bond", "Jr.", "james@bond.com", "123456789")));
         // Perform GET request and verify the response
         mockMvc.perform(get("/api/getAll"))
                 .andExpect(status().isOk())  // Expect HTTP 200 OK

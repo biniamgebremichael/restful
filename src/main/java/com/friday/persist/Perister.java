@@ -14,7 +14,5 @@ public interface Perister {
 
     User getByEmail(String email);
 
-    User getById(Integer id);
-
     List<User> get();
 }

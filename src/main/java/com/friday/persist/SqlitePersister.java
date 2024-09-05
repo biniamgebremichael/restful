@@ -9,17 +9,17 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class SqliteOnFileDAO implements Perister {
+public class SqlitePersister implements Perister {
 
 
     String dbDir = "/data";
     private final String createTable = "CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY AUTOINCREMENT, prefix TEXT, firstName TEXT NOT NULL, middleName TEXT, lastName TEXT NOT NULL, suffix TEXT , email TEXT NOT NULL UNIQUE, phone TEXT )";
     private final String url;
 
-    private static final Logger LOGGER = Logger.getLogger(SqliteOnFileDAO.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SqlitePersister.class.getName());
 
 
-    public SqliteOnFileDAO(FileHandler fileHandler) {
+    public SqlitePersister(FileHandler fileHandler) {
         LOGGER.addHandler(fileHandler);
         LOGGER.setLevel(Level.ALL);
 

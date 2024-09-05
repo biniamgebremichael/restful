@@ -22,6 +22,7 @@ dependencies {
     implementation group: 'org.xerial', name: 'sqlite-jdbc', version: '3.46.1.0'
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.6.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.3.3'
     implementation 'javax.validation:validation-api:2.0.1.Final'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'

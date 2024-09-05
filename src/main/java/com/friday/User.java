@@ -1,4 +1,16 @@
 package com.friday;
 
-public record User(long id, String prefix, String firstName, String middleName, String lastName, String suffix,String email, String phone) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+
+public record User(
+                   String prefix,
+                   @NotBlank(message = "First name is mandatory") String firstName,
+                   String middleName,
+                   @NotBlank(message = "Last name is mandatory") String lastName,
+                   String suffix,
+                   @NotBlank(message = "Email is mandatory") @Email(message = "Invalid email address") String email,
+                   @NotBlank(message = "Phone number is mandatory") String phone) {
+
 }

@@ -9,6 +9,10 @@
 #build complete jar file
 sh gradlew bootJar
 
+#stop and clean old image before upgrade
+sudo ./docker-compose  -f docker-compose.yaml  down
+sudo docker rmi restful-web
+#build image and deploy
 sudo ./docker-compose  -f docker-compose.yaml  up -d
 
 # run these two commands if you do not have docker-compose

@@ -32,40 +32,47 @@ public class Router {
     }
 
     @GetMapping("/")
-    public String  swagger(){
-        return "see available <A HREF=\"swagger-ui/index.html\">API usage</A>";
+    public String  home(){
+        return "see available <A HREF=\"swagger-ui/index.html\">API endpoints</A>";
     }
     @PostMapping("/api/add")
     public ResponseEntity<UserInfo> add(@Valid @RequestBody User user) {
         int count = this.perister.add(user);
         return count > 0 ? new ResponseEntity<>(new UserInfo("User " + user.email() + " created successfully"), HttpStatus.CREATED) :
-                new ResponseEntity<>(new UserInfo(user.email() + " not added"), HttpStatus.PARTIAL_CONTENT);
+                new ResponseEntity<>(new UserInfo("User " +user.email() + " not added"), HttpStatus.PARTIAL_CONTENT);
     }
 
     @PostMapping("/api/update")
     public ResponseEntity<UserInfo> update(@Valid @RequestBody User user) {
         int count = this.perister.update(user);
         return count > 0 ? new ResponseEntity<>(new UserInfo("User " + user.email() + " updated successfully"), HttpStatus.CREATED) :
-                new ResponseEntity<>(new UserInfo(user.email() + " not updated"), HttpStatus.PARTIAL_CONTENT);
+                new ResponseEntity<>(new UserInfo("User " +user.email() + " not updated"), HttpStatus.PARTIAL_CONTENT);
     }
 
     @PostMapping("/api/delete")
     public ResponseEntity<UserInfo> delete(@Valid @RequestBody UserLocator locator) {
         int count = this.perister.delete(locator.email());
         return count > 0 ? new ResponseEntity<>(new UserInfo("User " + locator.email() + " deleted successfully"), HttpStatus.CREATED) :
-                new ResponseEntity<>(new UserInfo(locator.email() + " not deleted"), HttpStatus.PARTIAL_CONTENT);
+                new ResponseEntity<>(new UserInfo("User " +locator.email() + " not deleted"), HttpStatus.PARTIAL_CONTENT);
     }
 
     @GetMapping("/api/getByEmail")
     public ResponseEntity<?> getByEmail(@NotBlank(message = "Email is mandatory") @Email(message = "Invalid email address") String email) {
         User user = this.perister.getByEmail(email);
-        return user == null ? new ResponseEntity<>(new UserInfo(email + " not found"), HttpStatus.PARTIAL_CONTENT) :
+        return user == null ? new ResponseEntity<>(new UserInfo("User " +email + " not found"), HttpStatus.PARTIAL_CONTENT) :
                 new ResponseEntity<User>(user, HttpStatus.OK);
+    }
+    @GetMapping("/api/search")
+//    @ApiOperation(value = "Get greeting message", notes = "Returns a greeting message")
+    public ResponseEntity<?> search(@NotBlank(message = "search key is mandatory")   String query) {
+        List<User> users = this.perister.search(query);
+        return users == null || users.isEmpty() ? new ResponseEntity<>(new UserInfo("No users found matching "+ query ), HttpStatus.PARTIAL_CONTENT) :
+                new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/api/getAll")
     public ResponseEntity<?> getAll() {
-        List<User> users = this.perister.get();
+        List<User> users = this.perister.getAll();
         return users == null || users.isEmpty() ? new ResponseEntity<>(new UserInfo("No users registered"), HttpStatus.PARTIAL_CONTENT) :
                 new ResponseEntity<>(users, HttpStatus.OK);
     }

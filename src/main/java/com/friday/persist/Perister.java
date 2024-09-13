@@ -14,5 +14,7 @@ public interface Perister {
 
     User getByEmail(String email);
 
-    List<User> get();
+    List<User> getAll();
+
+    List<User> search(String query) ;
 }

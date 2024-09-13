@@ -109,6 +109,27 @@ public class SqlitePersister implements Perister {
         return null;
     }
 
+
+    @Override
+    public List<User> search(String query) {
+        List<User> users = new ArrayList<>();
+        String sql = "Select * from users where concat(firstName,'|',lastName,'|',phone,'|',email) LIKE ?";
+        try (Connection conn = this.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, "%"+query+"%");
+            ResultSet resultSet = pstmt.executeQuery();
+            while (resultSet.next()) {
+                User user = getUser(resultSet);
+                users.add(user);
+            }
+        } catch (SQLException e) {
+            LOGGER.log(Level.SEVERE, "Failed to query user table", e);
+
+        }
+
+        return users;
+    }
+
     @Override
     public int delete(String email) {
         String sql = "delete from users where email = ?";
@@ -126,7 +147,7 @@ public class SqlitePersister implements Perister {
 
 
     @Override
-    public List<User> get() {
+    public List<User> getAll() {
         String sql = "Select * from users";
 
         try (Connection conn = this.connect()) {

@@ -1,5 +1,5 @@
-#TODO: manual build - convert to github action yml file for auto-build
 #!/bin/bash
+#TODO: manual build - convert to github action yml file for auto-build
 
 # requires:
 # 1. java 17 (download from: https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)
